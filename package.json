@@ -2,7 +2,7 @@
   "name": "smart-control-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://danilishe.github.com/smart-control-web",
+  "homepage": "https://danilishe.github.io/smart-control-web/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
