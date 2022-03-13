@@ -1,20 +1,17 @@
 import React from "react";
+import {Effect} from "../model/Effect";
 
-export class Effect {
-    constructor(id: String, label: String) {
-        this.label = label;
-        this.id = id;
-    }
-
-    public id: String;
-    public label: String;
+interface EffectsListProps {
+    effectsList: Effect[];
 }
 
-export const EffectsList: React.FC<{ effectsList: Effect[] }> = ({effectsList}) => {
-    let effectItems = effectsList.map((i: Effect) => (
-        <li className="collection-item">{i.label}</li>
-    ));
+export const EffectsList: React.FC<EffectsListProps> = (props) => {
     return (
-        <ul className="collection">{effectItems}</ul>
+        <ul className="collection">{
+            props.effectsList
+                .map((i: Effect) => (
+                    <li className="collection-item">{i.label}</li>
+                ))
+        }</ul>
     )
 }

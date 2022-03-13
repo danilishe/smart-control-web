@@ -1,11 +1,8 @@
 import React from "react";
+import {Effect} from "../model/Effect";
 
-export const EffectsCatalogue: React.FC = () => (
-    <ul className="collection">
-        <li className="collection-item">Эффект 1</li>
-        <li className="collection-item">Эффект 1</li>
-        <li className="collection-item">Эффект 1</li>
-        <li className="collection-item">Эффект 1</li>
-        <li className="collection-item">Эффект 1</li>
-    </ul>
+export const EffectsCatalogue: React.FC<{effects : Effect[]}> = ({effects}) => (
+           <ul className="collection">
+                   {effects.map(effect => <li key={effect.id}>{effect.label} Длина: {effect.framesCount()} кадров</li>)}
+           </ul>
 )
