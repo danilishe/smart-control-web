@@ -1,23 +1,33 @@
 import React from 'react';
 import './App.css';
-import {NavBar} from "./components/NavBar";
-import {PreviewArea} from "./components/PreviewArea";
-import {EffectsList} from "./components/EffectsList";
-import {EffectsCatalogue} from "./components/EffectsCatalogue";
-import {EffectSettings} from "./components/EffectSettings";
-import { fadeIn } from './model/Effect';
+import { NavBar } from "./components/NavBar";
+import { PreviewArea } from "./components/PreviewArea";
+import { ProgramList } from "./components/ProgramList";
+import { EffectsCatalogue } from "./components/EffectsCatalogue";
+import { EffectSettings } from "./components/EffectSettings";
 
 function App() {
-    let effectsList = [
-       fadeIn,
-    ];
     return <>
         <NavBar/>
         <div className="container">
-            <PreviewArea/>
-            <EffectsList effectsList={effectsList}/>
-            <EffectsCatalogue effects={effectsList}/>
-            <EffectSettings/>
+
+            <div className="row mt-3">
+                <div className="col-3">
+                    <EffectsCatalogue/>
+                </div>
+                <div className="col g-2">
+                    <PreviewArea/>
+                    <div className="container">
+                        <button className="m-2 btn btn-outline-secondary">Настройки</button>
+                        <button className="m-2 btn btn-outline-secondary">Сохранить</button>
+                        <button className="m-2 btn btn-outline-primary">Экспорт</button>
+                    </div>
+                    <ProgramList/>
+                </div>
+                <div className="col-3">
+                    <EffectSettings/>
+                </div>
+            </div>
         </div>
     </>
 }

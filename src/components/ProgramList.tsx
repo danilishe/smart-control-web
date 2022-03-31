@@ -1,14 +1,14 @@
 import React from "react";
 import {Effect} from "../model/Effect";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducer/rootReducer";
 
-interface EffectsListProps {
-    effectsList: Effect[];
-}
+export const ProgramList = () => {
 
-export const EffectsList: React.FC<EffectsListProps> = (props) => {
+    const effectsList = useSelector((state : RootState) =>state.programReducer.effects);
     return (
         <ul className="collection">{
-            props.effectsList
+            effectsList
                 .map((i: Effect) => (
                     <li className="collection-item">{i.label}</li>
                 ))

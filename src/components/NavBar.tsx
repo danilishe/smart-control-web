@@ -1,16 +1,26 @@
 import React from "react";
 
-export const NavBar: React.FC = () => (<nav>
-        <div className="nav-wrapper red darken-3">
-            <a href="." className="brand-logo center">SmartControl Web</a>
-            <ul className="left hide-on-med-and-down">
-                <li><a href=".">Загрузить</a></li>
-                <li><a href=".">Сохранить</a></li>
-                <li><a href=".">Экспорт</a></li>
-            </ul>
-            <ul className="right hide-on-med-and-down">
-                <li><a href="."><i className="material-icons left">settings</i>Настройки</a></li>
-            </ul>
+export const NavBar: React.FC = () => (<nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
+            <a className="navbar-brand" href="#">Navbar</a>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"/>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link disabled" href="#">Link</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </nav>
-)
+    </nav>)
