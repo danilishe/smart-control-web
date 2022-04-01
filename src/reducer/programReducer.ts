@@ -24,7 +24,7 @@ export const enum ProgramActionType {
     UPDATE_EFFECT,
 }
 
-export const programReducer = (state: ProgramState = INITIAL_STATE, action : Action<ProgramActionType>) => {
+export const programReducer = (state: ProgramState = INITIAL_STATE, action : Action<ProgramActionType>) : ProgramState => {
     switch (action) {
         default:
             return state;

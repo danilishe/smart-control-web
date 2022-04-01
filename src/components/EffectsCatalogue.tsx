@@ -2,7 +2,7 @@ import React from "react";
 import { Effect } from "../model/Effect";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../reducer/rootReducer";
-import { effectAdd } from "./actions";
+import { effectAdd } from "../reducer/actions";
 
 export const EffectsCatalogue = () => {
     const effectsList = useSelector((state: RootState) => state.effectsReducer.effects);
