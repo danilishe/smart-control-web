@@ -1,6 +1,6 @@
 type ColorSettings = {
     from: Color;
-    to: Color;
+    to?: Color;
 }
 
 interface Color {
@@ -28,8 +28,27 @@ const fadeIn: Effect = {
         to: {r: 23, g: 345, b: 345}
     },
     id: "fade in",
-    label: "Fade In",
-    description: "Smooth fade in effect",
+    label: "Простой перелив",
+    description: "Простое изменение цвета от первого ко второму за указанное время",
+    framesCount: () => {
+        return 0;
+    },
+
+    length() {
+        return 0;
+    },
+
+    paramsDescription() {
+        return "";
+    }
+}
+const solidColor: Effect = {
+    colorSettings: {
+        from: {r: 23, g: 345, b: 345}
+    },
+    id: "solid color",
+    label: "Сплошной цвет",
+    description: "Программа с одним сплошным цветом",
     framesCount: () => {
         return 0;
     },
@@ -43,4 +62,4 @@ const fadeIn: Effect = {
     }
 }
 
-export {fadeIn}
+export {fadeIn, solidColor}

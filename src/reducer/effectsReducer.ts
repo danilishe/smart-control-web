@@ -1,15 +1,9 @@
-import { Effect, fadeIn } from "../model/Effect";
-import { Action } from "./rootReducer";
-
-export const enum EffectActionType {
-    ADD_EFFECT,
-    REMOVE_EFFECT,
-    UPDATE_EFFECT,
-}
+import { Effect, fadeIn, solidColor } from "../model/Effect";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     effects: [
-        fadeIn
+        fadeIn, solidColor
     ]
 }
 
@@ -17,7 +11,7 @@ export interface EffectsState {
     effects: Effect[]
 }
 
-export const effectsReducer = (state: EffectsState = INITIAL_STATE, action : Action<EffectActionType>) => {
+export const effectsReducer = (state: EffectsState = INITIAL_STATE, action: PayloadAction<Effect>) => {
     switch (action.type) {
         default:
             return state;
