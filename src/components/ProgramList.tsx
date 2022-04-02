@@ -9,9 +9,10 @@ export const ProgramList = () => {
     const effectsList = useSelector((state: RootState) => state.programReducer.effects);
     return (
         <ul className="collection" style={{ maxHeight: 800, overflowY: "auto" }}>
-            {effectsList.map((i: Effect) => {
+            {effectsList.map((i: Effect, index) => {
                 return (
                     <div key={i.id} className="collection-item m-2">
+                        # {index + 1}
                         <ProgramItem effect={i} onClose={() => dispatch(effectRemove(i))}/>
                     </div>)
             })}
