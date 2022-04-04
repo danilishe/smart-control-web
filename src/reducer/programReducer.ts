@@ -20,13 +20,19 @@ export const programReducer = (state: ProgramState = INITIAL_STATE, action: Payl
         case effectRemove.type:
             return { ...state, effects: state.effects.filter(effect => effect.id !== action.payload.id) };
         case effectAdd.type:
-            return {
-                ...state,
-                effects: [
-                    ...state.effects,
-                    { ...action.payload, id: generateUniqueID() }
-                ]
-            };
+            const index = state.effects.indexOf(action.payload);
+            const newEffect = { ...action.payload, id: generateUniqueID() };
+            let newEffects : Effect[];
+            if (index >= 0) {
+                newEffects = [
+                    ...state.effects.slice(0, index),
+                    newEffect,
+                    ...state.effects.slice(index)
+                ];
+            } else {
+                newEffects = [...state.effects, newEffect];
+            }
+            return { ...state, effects: newEffects };
         default:
             return state;
     }

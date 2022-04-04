@@ -14,52 +14,27 @@ export interface Effect {
     id: string;
     label: string;
     colorSettings: ColorSettings;
-
-    paramsDescription(): string;
-
-    framesCount(): number;
-
-    length(): number;
+    length: number;
 }
 
 const fadeIn: Effect = {
     colorSettings: {
-        from: {r: 23, g: 345, b: 345},
-        to: {r: 23, g: 345, b: 345}
+        from: { r: 0, g: 0, b: 0 },
+        to: { r: 255, g: 255, b: 255 }
     },
     id: "fade in",
     label: "Простой перелив",
     description: "Простое изменение цвета от первого ко второму за указанное время",
-    framesCount: () => {
-        return 0;
-    },
-
-    length() {
-        return 0;
-    },
-
-    paramsDescription() {
-        return "";
-    }
+    length: 2
 }
 const solidColor: Effect = {
     colorSettings: {
-        from: {r: 23, g: 345, b: 345}
+        from: { r: 0, g: 0, b: 0 }
     },
     id: "solid color",
     label: "Сплошной цвет",
     description: "Программа с одним сплошным цветом",
-    framesCount: () => {
-        return 0;
-    },
-
-    length() {
-        return 0;
-    },
-
-    paramsDescription() {
-        return "";
-    }
+    length: 5
 }
 
-export {fadeIn, solidColor}
+export { fadeIn, solidColor }
