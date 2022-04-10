@@ -1,4 +1,4 @@
-import { Effect, fadeIn } from "../model/Effect";
+import { Effect, smoothChange } from "../model/Effect";
 import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 

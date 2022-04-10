@@ -1,9 +1,9 @@
-import { Effect, fadeIn, solidColor } from "../model/Effect";
+import { Effect, smoothChange, sharpChange, solidColor } from "../model/Effect";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     effects: [
-        fadeIn, solidColor
+        smoothChange, sharpChange, solidColor
     ]
 }
 

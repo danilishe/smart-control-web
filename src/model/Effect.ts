@@ -1,8 +1,3 @@
-type ColorSettings = {
-    from: Color;
-    to?: Color;
-}
-
 interface Color {
     r: number;
     g: number;
@@ -13,28 +8,54 @@ export interface Effect {
     description: string;
     id: string;
     label: string;
-    colorSettings: ColorSettings;
-    length: number;
+    colorSettings: Color[];
+    lengthMs: number;
+    additionalPropertiesToDisplay?: AdditionalProperties;
 }
 
-const fadeIn: Effect = {
-    colorSettings: {
-        from: { r: 0, g: 0, b: 0 },
-        to: { r: 255, g: 255, b: 255 }
-    },
-    id: "fade in",
-    label: "Простой перелив",
-    description: "Простое изменение цвета от первого ко второму за указанное время",
-    length: 2
+export interface AdditionalProperties {
+    [key: string]: string | number;
+}
+
+const smoothChange: Effect = {
+    colorSettings: [
+        { r: 0, g: 0, b: 0 },
+        { r: 255, g: 255, b: 255 }
+    ],
+    id: "smooth change",
+    label: "Плавный перелив",
+    description: "Плавный перелив из одного цвета в другой по всей длине программы",
+    lengthMs: 2_000,
+    additionalPropertiesToDisplay: {
+        "some": "q12341234",
+        "aaefa": 23452345,
+        "j": "q12341234",
+        "mlkjlk kj": 23452345,
+        "sokjlme": "q1 2341234",
+        "amnaefa": 23452345,
+        "sokj;klme": "q12341 234",
+        "aklefa": 23452345,
+    }
 }
 const solidColor: Effect = {
-    colorSettings: {
-        from: { r: 0, g: 0, b: 0 }
-    },
+    colorSettings: [
+        { r: 0, g: 0, b: 0 },
+    ],
     id: "solid color",
     label: "Сплошной цвет",
     description: "Программа с одним сплошным цветом",
-    length: 5
+    lengthMs: 5_000,
 }
 
-export { fadeIn, solidColor }
+const sharpChange: Effect = {
+    colorSettings: [
+        { r: 255, g: 255, b: 255 },
+        { r: 0, g: 0, b: 0 },
+    ],
+    id: "sharp change",
+    label: "Резкое переключение",
+    description: "Резкое переключение цвета через указанный промежуток времени",
+    lengthMs: 5_000,
+}
+
+export { smoothChange, sharpChange, solidColor }

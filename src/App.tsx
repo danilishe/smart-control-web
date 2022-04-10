@@ -4,7 +4,6 @@ import { NavBar } from "./components/NavBar";
 import { PreviewArea } from "./components/PreviewArea";
 import { ProgramList } from "./components/ProgramList";
 import { EffectsCatalogue } from "./components/EffectsCatalogue";
-import { EffectSettings } from "./components/EffectSettings";
 
 function App() {
     return <>
@@ -23,9 +22,6 @@ function App() {
                         <button className="m-2 btn btn-outline-primary">Экспорт</button>
                     </div>
                     <ProgramList/>
-                </div>
-                <div className="col-3">
-                    <EffectSettings/>
                 </div>
             </div>
         </div>
