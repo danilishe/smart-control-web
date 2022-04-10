@@ -1,15 +1,12 @@
 {
   "files": {
-    "main.css": "/smart-control-web/static/css/main.e6c13ad2.css",
-    "main.js": "/smart-control-web/static/js/main.cc26ff06.js",
-    "static/js/787.0eddc2e0.chunk.js": "/smart-control-web/static/js/787.0eddc2e0.chunk.js",
+    "main.css": "/smart-control-web/static/css/main.31d6cfe0.css",
+    "main.js": "/smart-control-web/static/js/main.5d0a3943.js",
     "index.html": "/smart-control-web/index.html",
-    "main.e6c13ad2.css.map": "/smart-control-web/static/css/main.e6c13ad2.css.map",
-    "main.cc26ff06.js.map": "/smart-control-web/static/js/main.cc26ff06.js.map",
-    "787.0eddc2e0.chunk.js.map": "/smart-control-web/static/js/787.0eddc2e0.chunk.js.map"
+    "main.5d0a3943.js.map": "/smart-control-web/static/js/main.5d0a3943.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.cc26ff06.js"
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.5d0a3943.js"
   ]
 }
