@@ -13,14 +13,12 @@ export const ProgramList = () => {
             {effectsList.map((i: Effect, index) => {
                 return (
                     <div key={i.id} className="collection-item m-2">
-                        <div className="d-flex align-items-start">
-                            <ProgramItemCard effect={i}
-                                            index={index}
-                                            onClose={() => dispatch(effectRemove(i))}
-                                            onCopy={() => dispatch(effectAdd(i))}/>
-                        </div>
-
-                    </div>)
+                        <ProgramItemCard effect={i}
+                                         index={index}
+                                         onClose={() => dispatch(effectRemove(i))}
+                                         onCopy={() => dispatch(effectAdd(i))}/>
+                    </div>
+                )
             })}
         </ul>
     )

@@ -1,6 +1,6 @@
 import { Effect } from "../model/Effect";
-import React, { MouseEventHandler } from "react";
-import { trimTime } from "../utils";
+import React, { MouseEventHandler, useMemo } from "react";
+import { toFrames, trimTime } from "../utils";
 import { AdditionalDataTable } from "./AdditionalDataTable";
 
 interface ProgramItemCardProps {
@@ -8,7 +8,7 @@ interface ProgramItemCardProps {
     index: number;
     onClose?: MouseEventHandler<HTMLButtonElement>;
     onCopy?: MouseEventHandler<HTMLButtonElement>;
-    onMove?: MouseEventHandler<HTMLButtonElement>;
+    onMove?: MouseEventHandler<HTMLElement>;
 }
 
 export function ProgramItemCard({
@@ -16,26 +16,25 @@ export function ProgramItemCard({
                                     onCopy, onClose, onMove,
                                 }: ProgramItemCardProps) {
     return (
-        <div className="card m-2 p-2" style={{ minWidth: "30rem" }}>
+        <div className="card" style={{ minWidth: "30rem" }}>
             <div className="card-body">
-                <div className="d-flex">
-                    <div className="fs-6 float-start">
-                        #{index + 1}
+                <div className="row">
+                    <div className="col-1 d-flex flex-column">
+                        <div className="fs-6 fw-lighter">
+                            #{index + 1}
+                        </div>
+                        <div style={{ height: "2rem", width: "2rem" }} onDrag={onMove} className="fs-3 bi-arrows-move"/>
                     </div>
-                    <div className="float-end">
-                        <button type="button" onClick={onMove} className="btn"><span className="bi-arrows-move"/>
+                    <div className="col-10"><EffectCard effect={effect}/></div>
+                    <div className="col-1">
+                        <button onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard"/>
                         </button>
-                        <button type="button" onClick={onCopy} className="btn"><span className="bi-clipboard"/>
-                        </button>
-                        <button type="button" onClick={onClose} className="btn btn-danger"><span
+                        <button  onClick={onClose} className="btn btn-lg btn-danger"><span
                             className="bi-trash"/>
                         </button>
                     </div>
                 </div>
-
             </div>
-            <EffectCard effect={effect}/>
-
         </div>
     );
 }
@@ -45,24 +44,27 @@ interface ProgramItemProps {
 }
 
 const EffectCard = ({ effect }: ProgramItemProps) => {
-    function colorList() {
-        return effect.colorSettings.map((color, i) => <>
+    const colorPalette = useMemo(() => effect.colorSettings.map((color, i) => <>
                 <div className="me-2 border shadow-sm p-3 rounded"
                      style={{
                          background: `rgb(${color.r}, ${color.g}, ${color.b})`
                      }}/>
                 {i + 1 < effect.colorSettings.length ? <i className="bi-arrow-right me-2"/> : ""}
-            </>
-        );
-    }
+            </>), [effect.colorSettings]);
+
+    const effectLength = useMemo(() => trimTime(effect.lengthMs), [effect.lengthMs]);
+    const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
 
     return (
-        <div className="card p-2">
+        <div className="card">
             <div className="card-title">{effect.label}</div>
             <div className="card-body">
                 <div className="d-flex align-items-center">
-                    {colorList()}
-                    <div className="fs-5">{trimTime(effect.lengthMs)}</div>
+                    {colorPalette}
+                    <div className="fs-5">
+                        {effectLength}
+                        <span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
+                    </div>
                 </div>
                 <AdditionalDataTable data={effect.additionalPropertiesToDisplay}/>
             </div>

@@ -1,4 +1,4 @@
-import { ALL_EFFECTS, Effect, smoothChange } from "../model/Effect";
+import { Effect } from "../model/Effect";
 import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 
@@ -8,7 +8,7 @@ export const effectRemove = createAction<Effect>("effect/remove")
 export const effectUpdate = createAction<Effect>("effect/update")
 
 const INITIAL_STATE: ProgramState = {
-    effects: [ ...ALL_EFFECTS ],
+    effects: [],
 }
 
 export interface ProgramState {
