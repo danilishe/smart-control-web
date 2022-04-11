@@ -1,4 +1,4 @@
-import { Effect, smoothChange } from "../model/Effect";
+import { ALL_EFFECTS, Effect, smoothChange } from "../model/Effect";
 import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 
@@ -8,7 +8,7 @@ export const effectRemove = createAction<Effect>("effect/remove")
 export const effectUpdate = createAction<Effect>("effect/update")
 
 const INITIAL_STATE: ProgramState = {
-    effects: []
+    effects: [ ...ALL_EFFECTS ],
 }
 
 export interface ProgramState {
@@ -22,7 +22,7 @@ export const programReducer = (state: ProgramState = INITIAL_STATE, action: Payl
         case effectAdd.type:
             const index = state.effects.indexOf(action.payload);
             const newEffect = { ...action.payload, id: generateUniqueID() };
-            let newEffects : Effect[];
+            let newEffects: Effect[];
             if (index >= 0) {
                 newEffects = [
                     ...state.effects.slice(0, index),
@@ -30,7 +30,7 @@ export const programReducer = (state: ProgramState = INITIAL_STATE, action: Payl
                     ...state.effects.slice(index)
                 ];
             } else {
-                newEffects = [...state.effects, newEffect];
+                newEffects = [ ...state.effects, newEffect ];
             }
             return { ...state, effects: newEffects };
         default:
