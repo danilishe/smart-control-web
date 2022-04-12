@@ -1,10 +1,8 @@
-import { Effect, smoothChange, sharpChange, solidColor } from "../model/Effect";
+import { Effect, smoothChange, sharpChange, solidColor, ALL_EFFECTS } from "../model/Effect";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-const INITIAL_STATE = {
-    effects: [
-        smoothChange, sharpChange, solidColor
-    ]
+const INITIAL_STATE: EffectsState = {
+    effects: [ ...ALL_EFFECTS ]
 }
 
 export interface EffectsState {
