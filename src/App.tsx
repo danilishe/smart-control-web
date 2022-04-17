@@ -13,7 +13,7 @@ function App() {
     const fileRef = useRef<HTMLInputElement>(null)
 
     const exportProgram = () => {
-        const file = new Blob([ 'jj9009909вапывапыв90апыва9п9ывафы0l', '\0' ], {
+        const file = new Blob([ 'jj9009909вапывапыв90апыва9п9ывафы0l' ], {
             type: "application/octet-stream",
         })
         const reader = new FileReader();
