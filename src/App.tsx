@@ -13,11 +13,12 @@ function App() {
     const fileRef = useRef<HTMLInputElement>(null)
 
     const exportProgram = () => {
-        const file = fileRef.current!.files![0];
+        const file = new Blob(['jj9009909вапывапыв90апыва9п9ывафы0l\0'], {
+            type: "application/octet-stream",
+        })
         const reader = new FileReader();
         reader.onload = () => {
-            downloadLinkRef.current!.href = reader.result as string;
-            downloadLinkRef.current!.click();
+            window.open(reader.result as string, "_self");
         }
         reader.readAsDataURL(file);
     }
