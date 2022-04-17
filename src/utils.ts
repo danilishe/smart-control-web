@@ -1,4 +1,4 @@
-import Constants from "./constants";
+import Parameters from "./parameters";
 import Color from "./model/Color";
 
 export function trimTime(lengthMs: number): string {
@@ -8,7 +8,7 @@ export function trimTime(lengthMs: number): string {
 }
 
 export function toFrames(length: number) {
-    return Math.round(length / Constants.minFrameLength);
+    return Math.round(length / Parameters.minFrameLength);
 }
 
 export function colorMix(from: Color, to: Color, grade: number): Color {

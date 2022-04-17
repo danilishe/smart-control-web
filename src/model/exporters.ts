@@ -10,7 +10,7 @@ export type ProgramSnippet = Array<Array<Color>>;
 
 
 export const smoothChangeExporter: EffectExporter = (channels, effect) => {
-    const framesCount = toFrames(length);
+    const framesCount = toFrames(effect.lengthMs);
     return Array(channels).fill(createGradient(effect.colorSettings, framesCount))
 }
 
@@ -20,6 +20,6 @@ export const solidColorExporter: EffectExporter = (channels, effect) => {
 };
 
 export const sharpChangeExporter: EffectExporter = (channels, effect) => {
-    const framesCount = toFrames(length);
+    const framesCount = toFrames(effect.lengthMs);
     return Array(channels).fill(createGradient(effect.colorSettings, framesCount, false));
 }
