@@ -13,35 +13,36 @@ function App() {
     const fileRef = useRef<HTMLInputElement>(null)
 
     const exportProgram = () => {
-        const file = new Blob(['jj9009909вапывапыв90апыва9п9ывафы0l\0'], {
+        const file = new Blob([ 'jj9009909вапывапыв90апыва9п9ывафы0l', '\0' ], {
             type: "application/octet-stream",
         })
         const reader = new FileReader();
         reader.onload = () => {
-            window.open(reader.result as string, "_self");
+            downloadLinkRef.current!.href = reader.result as string;
+            downloadLinkRef.current!.click();
         }
         reader.readAsDataURL(file);
     }
 
     return <>
-        <NavBar/>
+        <NavBar />
         <div className="container">
 
             <div className="row mt-3">
                 <div className="col-3">
-                    <EffectsCatalogue/>
+                    <EffectsCatalogue />
                 </div>
                 <div className="col g-2">
-                    <PreviewArea/>
+                    <PreviewArea />
                     <div className="container">
                         <button className="m-2 btn btn-outline-secondary">Настройки</button>
                         <button className="m-2 btn btn-outline-secondary">Сохранить</button>
                         <button onClick={exportProgram} className="m-2 btn btn-outline-primary">Экспорт</button>
-                        <a ref={downloadLinkRef} href="data:text/html,HelloWorld!" type="image/jpeg"
-                           download={Parameters.defaultExportFileName} hidden/>
-                        <input ref={fileRef} type="file" className="file"/>
+                        <a ref={downloadLinkRef} href="" type="application/octet-stream"
+                           download={Parameters.defaultExportFileName} target="_self" hidden />
+                        <input ref={fileRef} type="file" className="file" />
                     </div>
-                    <ProgramList/>
+                    <ProgramList />
                 </div>
             </div>
         </div>
