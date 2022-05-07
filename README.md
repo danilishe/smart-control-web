@@ -1,46 +1,16 @@
-# Getting Started with Create React App
+# Smart Controller Web 
+Онлайн версия для составления программ для контроллера SmartControl
+### Используемые термины
+#### Лампа \ Bulb 
+виртуальное представление группы каналов (для монохромного режима он один на каждую лампу). Для пользователя удобно представлять, что каждая лампа это одно устройство, при этом физически лампой может быть несколько каналов (например 3 для RGB подключения или 2 и более для усиленных).
+(!) при экспорте усиленного х2 RGB усиление дублируется последовательно, например RGBRGB но не RRGGBB
+#### Канал \ Channel 
+физическое подключение SmartPixel к SmartControl. Каждый SmartPixel является отдельным каналом и управляет только одним сигналом на выходе. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Например у пользователя вывеска ХЛЕБ, он планирует сделать плавное разгорание всей вывески используя один цвет. Для этого достаточно 1 канала (при условии достаточной мощности), так как все 4 буквы будут работать одновременно. 
 
-## Available Scripts
+В случае, если мощности одного SmartPixel недостаточно, целевая часть вывески делится на сегменты не превышеющей максимальной мощности 1 SmartPixel. *Например:* мощность всей вывески 20Вт, максимальня мощность 1 SmartPixel 10Вт, таким образом потребуется 2 канала на вывеску для одновременной работы всей вывески. В настройках программы выбирается 1 лампа, а в настройках лампы монохромный режим и 2 канала.
 
-In the project directory, you can run:
+Если пользователь захочет, чтобы вывеска ХЛЕБ набиралась побуквенно, потребуется 4 канала, по 1 на каждую букву.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Однако, если пользователю потребуется плавный перелив цвета на каждой букве отдельно, потребуется по 3 канала на каждую букву, итого 12 каналов, но при этом в настройках 4 лампы, режим RGB (в зависимости от порядка подключения)
