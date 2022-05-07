@@ -1,5 +1,4 @@
-import AppParams from "../../defaultParams";
-import { Effect, solidColor } from "../Effect";
+import { AppParams } from "../../defaultParams";
 import { ColorMode, exportColor, frameFill } from "../exporters";
 
 beforeAll(() => {
@@ -51,7 +50,7 @@ describe("export'", () => {
     //         expect()
     //     }
     //     reader.readAsDataURL(file);
-    
+
     //  });
     // // test('использует красный канал в черно-белом режиме', () => { });
     // test('использует красный канал в черно-белом режиме', () => { });

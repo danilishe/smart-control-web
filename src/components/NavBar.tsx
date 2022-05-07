@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { useSelector } from "react-redux";
-import { exportAsB64 } from "../model/exporters";
-import AppParams, { ProgramSettings } from "../defaultParams";
+import { createDataLink as createDataLink } from "../model/exporters";
+import {AppParams, ProgramSettings } from "../defaultParams";
 import { RootState } from "../reducer/rootReducer";
 
 export const NavBar = () => {
@@ -9,7 +9,7 @@ export const NavBar = () => {
     const downloadLinkRef = useRef<HTMLAnchorElement>(null)
     const exportProgram: MouseEventHandler<HTMLAnchorElement> = (event) => {
         event.preventDefault();
-        downloadLinkRef.current!.href = exportAsB64(ProgramSettings, program);
+        downloadLinkRef.current!.href = createDataLink(ProgramSettings, program);
         downloadLinkRef.current!.click();
     };
 

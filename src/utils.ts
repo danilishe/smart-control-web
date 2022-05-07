@@ -1,4 +1,4 @@
-import AppParams from "./defaultParams";
+import { AppParams } from "./defaultParams";
 import Color from "./model/Color";
 
 export function trimTime(lengthMs: number): string {
