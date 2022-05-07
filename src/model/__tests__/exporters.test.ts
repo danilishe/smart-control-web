@@ -1,5 +1,5 @@
 import { AppParams } from "../../defaultParams";
-import { ColorMode, exportColor, frameFill } from "../exporters";
+import { ColorMode, exportColor, formFrame } from "../exporters";
 
 beforeAll(() => {
 });
@@ -10,15 +10,16 @@ afterAll(() => {
 describe("export'", () => {
 
     test.each([
-        Array(0).fill(255),
-        Array(2).fill(255),
-        Array(AppParams.maxChannelsCount).fill(255)
-    ])('fills every array up to maximum ' + AppParams.maxChannelsCount, () => {
-        expect(frameFill([10, 10])).toHaveLength(AppParams.maxChannelsCount);
+        [Array<number>(0).fill(255)],
+        [Array<number>(2).fill(255)],
+        [Array<number>(AppParams.maxChannelsCount).fill(255)],
+        [Array<number>(AppParams.maxChannelsCount + 1).fill(255)],
+    ])('fills every array up to maximum and trimms ' + AppParams.maxChannelsCount + `(${frames.length})`, (frame: Array<number>) => {
+        expect(formFrame(frame)).toHaveLength(AppParams.maxChannelsCount);
     });
 
     test('fills every array up to maximum with zeroes', () => {
-        expect(frameFill([])).toEqual(Array(AppParams.maxChannelsCount).fill(0));
+        expect(formFrame([])).toEqual(Array(AppParams.maxChannelsCount).fill(0));
     });
 
     test('uses red channel from rgb in bw mode ', () => {

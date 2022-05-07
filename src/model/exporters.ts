@@ -65,8 +65,9 @@ export enum ColorMode {
     RGB
 }
 
-export function frameFill(channels: number[]): Array<number> {
-    return channels.concat(Array(AppParams.maxChannelsCount - channels.length).fill(0));
+export function formFrame(channels: number[]): Array<number> {
+    let trimmedChannels = channels.slice(0, AppParams.maxChannelsCount);
+    return trimmedChannels.concat(Array(AppParams.maxChannelsCount - trimmedChannels.length).fill(0));
 }
 
 export function exportColor(color: Color, mode: ColorMode): Array<number> {
