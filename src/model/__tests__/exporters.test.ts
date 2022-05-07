@@ -29,14 +29,20 @@ describe("export'", () => {
     test('converts array to string', () => {
         expect(arrayToString([10, 32, 0])).toEqual("\n \0");
     });
-
-    // do I need this?
-    // const testColor: Color = { r: 255, g: 125, b: 0 };
-    // test('flips color matrix to horisontal', () => {
-    //     expect(flip([
-    //         [testColor, testColor]
-    //     ]))
-    // });
+    
+    test('uses subfunction in expected order', () => {
+        // effect 8 ch
+        // call exporter
+        // join snippents
+        // get slices of frames
+        // convert bulbs to channels
+        // extend each frame to max channels
+        // convert to string
+        // join to string array and create blob
+        // convert to base64
+        expect(arrayToString).toBeCalled();
+    });
+    
 
     // test('return base64 data link', async () => {
     //     const testProgram = Array(AppParams.maxChannelsCount).fill(0);
