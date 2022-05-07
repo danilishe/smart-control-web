@@ -1,19 +1,16 @@
 import React, { MouseEventHandler, useRef } from "react";
-import Parameters from "../parameters";
+import { useSelector } from "react-redux";
+import { exportAsB64 } from "../model/exporters";
+import AppParams, { ProgramSettings } from "../defaultParams";
+import { RootState } from "../reducer/rootReducer";
 
 export const NavBar = () => {
+    const program = useSelector((state: RootState) => state.programReducer.effects);
     const downloadLinkRef = useRef<HTMLAnchorElement>(null)
     const exportProgram: MouseEventHandler<HTMLAnchorElement> = (event) => {
         event.preventDefault();
-        const file = new Blob([ 'jj90099093dasdfswe323425gtwdr453' ], {
-            type: "application/octet-stream",
-        })
-        const reader = new FileReader();
-        reader.onload = () => {
-            downloadLinkRef.current!.href = reader.result as string;
-            downloadLinkRef.current!.click();
-        }
-        reader.readAsDataURL(file);
+        downloadLinkRef.current!.href = exportAsB64(ProgramSettings, program);
+        downloadLinkRef.current!.click();
     };
 
     return (
@@ -21,9 +18,9 @@ export const NavBar = () => {
             <div className="container">
                 <a className="navbar-brand" target="_blank" href="https://is-led.ru">Smart Control Web</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,8 +38,8 @@ export const NavBar = () => {
                 </div>
             </div>
             <a ref={downloadLinkRef} href=""
-               type="application/octet-stream"
-               download={Parameters.defaultExportFileName}
-               target="_self" hidden />
+                type="application/octet-stream"
+                download={AppParams.defaultExportFileName}
+                target="_self" hidden />
         </nav>);
 }

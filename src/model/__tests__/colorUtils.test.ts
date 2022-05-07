@@ -84,6 +84,4 @@ describe("градиент", () => {
         expect(() => createGradient(colors, length))
             .toThrow(error);
     });
-
-
 })
