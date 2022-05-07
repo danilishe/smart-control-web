@@ -1,5 +1,5 @@
 import { AppParams } from "../../defaultParams";
-import { ColorMode, exportColor, formFrame } from "../exporters";
+import { arrayToString, ColorMode, exportColor, formFrame } from "../exporters";
 
 beforeAll(() => {
 });
@@ -14,7 +14,7 @@ describe("export'", () => {
         [Array<number>(2).fill(255)],
         [Array<number>(AppParams.maxChannelsCount).fill(255)],
         [Array<number>(AppParams.maxChannelsCount + 1).fill(255)],
-    ])('fills every array up to maximum and trimms ' + AppParams.maxChannelsCount + `(${frames.length})`, (frame: Array<number>) => {
+    ])('fills every array up to maximum and trimms ' + AppParams.maxChannelsCount, (frame: Array<number>) => {
         expect(formFrame(frame)).toHaveLength(AppParams.maxChannelsCount);
     });
 
@@ -24,6 +24,10 @@ describe("export'", () => {
 
     test('uses red channel from rgb in bw mode ', () => {
         expect(exportColor({ r: 255, g: 125, b: 0 }, ColorMode.Mono)).toEqual([255]);
+    }); 
+    
+    test('converts array to string', () => {
+        expect(arrayToString([10, 32, 0])).toEqual("\n \0");
     });
 
     // do I need this?
@@ -53,8 +57,5 @@ describe("export'", () => {
     //     reader.readAsDataURL(file);
 
     //  });
-    // // test('использует красный канал в черно-белом режиме', () => { });
-    // test('использует красный канал в черно-белом режиме', () => { });
-
 })
 

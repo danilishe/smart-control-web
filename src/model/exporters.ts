@@ -76,3 +76,7 @@ export function exportColor(color: Color, mode: ColorMode): Array<number> {
             return [color.r];
     }
 }
+
+export function arrayToString(values: number[]): string {
+    return String.fromCharCode(...values);
+}
