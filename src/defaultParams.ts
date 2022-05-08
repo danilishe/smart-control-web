@@ -1,3 +1,5 @@
+import { ColorMode } from "./model/exporters";
+
 export const AppParams = {
     minFrameLength: 40,
     maxChannelsCount: 45,
@@ -5,5 +7,6 @@ export const AppParams = {
 }
 
 export const ProgramSettings = {
-    channelsCount: 8,
+    bulbsCount: 8,
+    colorMode: ColorMode.Mono,
 };

@@ -30,18 +30,19 @@ describe("export'", () => {
         expect(arrayToString([10, 32, 0])).toEqual("\n \0");
     });
     
-    test('uses subfunction in expected order', () => {
-        // effect 8 ch
-        // call exporter
-        // join snippents
-        // get slices of frames
-        // convert bulbs to channels
-        // extend each frame to max channels
-        // convert to string
-        // join to string array and create blob
-        // convert to base64
-        expect(arrayToString).toBeCalled();
-    });
+    // test('uses subfunction in expected order', () => {
+    //     jest.spyOn(exporter, "joinSnippets")
+    //     // effect 8 ch
+    //     // call exporter
+    //     // join snippents
+    //     // get slices of frames
+    //     // convert bulbs to channels
+    //     // extend each frame to max channels
+    //     // convert to string
+    //     // join to string array and create blob
+    //     // convert to base64
+    //     expect(arrayToString).toBeCalled();
+    // });
     
 
     // test('return base64 data link', async () => {

@@ -27,37 +27,25 @@ export const sharpChangeExporter: EffectExporter = (channels, effect) => {
 }
 
 export function createDataLink(settings: typeof ProgramSettings, effects: Array<Effect>): string {
-    const result: ProgramSnippet = new Array<Array<Color>>(settings.channelsCount)
-        .fill(new Array<Color>());
-    for (let i = 0; i < effects.length; i++) {
-        const effect = effects[i];
-        const effectSnippet = effect.exporter(settings.channelsCount, effect);
-        for (let j = 0; j < effectSnippet.length; j++) {
-            const channel = effectSnippet[j];
-            result[i] = result[i].concat(channel); // TODO: looks like low efficiency 
-        }
-    }
+    const snippet: ProgramSnippet = joinExportedEffects(settings.bulbsCount, effects)
+    const frames = flipSnippet(snippet);
+    const binaryProgram: string[] = frames
+        .map(frame => convertBulbsToChannels(frame, settings.colorMode))
+        .map(formFrame)
+        .map(arrayToString);
 
-    const programLength = result[0].length;
-    const frames: Array<string> = new Array<string>();
-    for (let i = 0; i < programLength; i++) {
-        frames.push(String.fromCharCode(...result.map(ch => ch[i].r))); // only mono color
-
-    }
-
-    effects.map(e => {
-        e.exporter(settings.channelsCount, e);
-    })
-
-    const file = new Blob(frames, {
+    const file = new Blob(binaryProgram, {
         type: "application/octet-stream",
-    })
+    });
+
+    let result : string;
     const reader = new FileReader();
     reader.onload = () => {
+        result = reader.result as string;
     }
     reader.readAsDataURL(file);
 
-    return "";
+    return result!;
 }
 
 export enum ColorMode {
@@ -80,3 +68,32 @@ export function exportColor(color: Color, mode: ColorMode): Array<number> {
 export function arrayToString(values: number[]): string {
     return String.fromCharCode(...values);
 }
+
+function joinExportedEffects(channelsCount: number, effects: Effect[]): ProgramSnippet {
+    const result = new Array<Array<Color>>(channelsCount)
+        .fill(new Array<Color>());
+    for (let i = 0; i < effects.length; i++) {
+        const effect = effects[i];
+        const effectSnippet = effect.exporter(channelsCount, effect);
+        for (let j = 0; j < effectSnippet.length; j++) {
+            const channel = effectSnippet[j];
+            result[i] = result[i].concat(channel); // TODO: looks like low efficiency 
+        }
+    }
+    return result;
+}
+function flipSnippet(snippet: ProgramSnippet): ProgramSnippet {
+    const programLength = snippet[0].length;
+    const result = Array<Array<Color>>(programLength);
+    for (let frameIndex = 0; frameIndex < programLength; frameIndex++) {
+        const frame = Array(snippet.length);
+        snippet.forEach((bulbProgram, bulbIndex) => frame[bulbIndex] = bulbProgram[frameIndex]);
+        result[frameIndex] = frame;
+    }
+    return result;
+}
+
+function convertBulbsToChannels(frame: Color[], mode: ColorMode): number[] {
+    return frame.flatMap(c => exportColor(c, mode));
+}
+
