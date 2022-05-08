@@ -1,12 +1,21 @@
 import { AppParams } from "../../defaultParams";
-import { arrayToString, ColorMode, exportColor, formFrame } from "../exporters";
+import Color from "../Color";
+import { ColorMode } from "../ColorMode";
+import { solidColor } from "../Effect";
+import { arrayToString, toBinaryFrames, exportColor, formFrame, joinExportedEffects, solidColorExporter, flipSnippet } from "../exporters";
+
+const testColor: Color = { r: 32, g: 32, b: 32 };
+const oneFrameSolidColorEffect = {
+    ...solidColor,
+    colorSettings: [testColor],
+    lengthMs: AppParams.minFrameLength
+}
 
 beforeAll(() => {
 });
 
 afterAll(() => {
 });
-
 describe("export'", () => {
 
     test.each([
@@ -24,26 +33,29 @@ describe("export'", () => {
 
     test('uses red channel from rgb in bw mode ', () => {
         expect(exportColor({ r: 255, g: 125, b: 0 }, ColorMode.Mono)).toEqual([255]);
-    }); 
-    
+    });
+
     test('converts array to string', () => {
         expect(arrayToString([10, 32, 0])).toEqual("\n \0");
     });
-    
-    // test('uses subfunction in expected order', () => {
-    //     jest.spyOn(exporter, "joinSnippets")
-    //     // effect 8 ch
-    //     // call exporter
-    //     // join snippents
-    //     // get slices of frames
-    //     // convert bulbs to channels
-    //     // extend each frame to max channels
-    //     // convert to string
-    //     // join to string array and create blob
-    //     // convert to base64
-    //     expect(arrayToString).toBeCalled();
-    // });
-    
+
+    test('creates proper binary', () => {
+        expect(toBinaryFrames(
+            [oneFrameSolidColorEffect],
+            1, ColorMode.Mono
+        )).toEqual([String.fromCharCode(testColor.r).concat(Array(AppParams.maxChannelsCount - 1).fill("\0").join(""))]);
+    });
+
+
+    test('joins effects', () => {
+        const joinedSnippets = joinExportedEffects(1, [oneFrameSolidColorEffect, oneFrameSolidColorEffect]);
+        expect(joinedSnippets).toEqual([[testColor, testColor]]);
+    });
+
+    test('flips snippet', () => {
+        expect(flipSnippet([[testColor, testColor]])).toEqual([[testColor], [testColor]]);
+    });
+
 
     // test('return base64 data link', async () => {
     //     const testProgram = Array(AppParams.maxChannelsCount).fill(0);
@@ -66,3 +78,8 @@ describe("export'", () => {
     //  });
 })
 
+describe("effect exporter", () => {
+    test("solid color exporter", () => {
+        expect(solidColorExporter(1, oneFrameSolidColorEffect)).toEqual([[testColor]])
+    });
+})

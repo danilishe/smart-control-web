@@ -7,9 +7,9 @@ import { RootState } from "../reducer/rootReducer";
 export const NavBar = () => {
     const program = useSelector((state: RootState) => state.programReducer.effects);
     const downloadLinkRef = useRef<HTMLAnchorElement>(null)
-    const exportProgram: MouseEventHandler<HTMLAnchorElement> = (event) => {
+    const exportProgram: MouseEventHandler<HTMLAnchorElement> = async (event) => {
         event.preventDefault();
-        downloadLinkRef.current!.href = createDataLink(ProgramSettings, program);
+        downloadLinkRef.current!.href = await createDataLink(ProgramSettings, program);
         downloadLinkRef.current!.click();
     };
 

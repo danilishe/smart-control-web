@@ -9,17 +9,18 @@ export const ProgramList = () => {
     const dispatch = useDispatch();
     const effectsList = useSelector((state: RootState) => state.programReducer.effects);
     return (
-        <ul className="collection" style={{ maxHeight: 800, overflowY: "auto" }}>
+        <div className="collection">
             {effectsList.map((i: Effect, index) => {
                 return (
-                    <div key={i.id} className="collection-item m-2">
+                    <li key={i.id} className="collection-item m-2">
                         <ProgramItemCard effect={i}
-                                         index={index}
-                                         onClose={() => dispatch(effectRemove(i))}
-                                         onCopy={() => dispatch(effectAdd(i))}/>
-                    </div>
+                            index={index}
+                            onClose={() => dispatch(effectRemove(i))}
+                            onCopy={() => dispatch(effectAdd(i))} />
+                            <p>{i.id}</p>
+                    </li>
                 )
             })}
-        </ul>
+        </div>
     )
 }

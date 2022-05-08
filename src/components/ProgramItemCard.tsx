@@ -12,9 +12,9 @@ interface ProgramItemCardProps {
 }
 
 export function ProgramItemCard({
-                                    index, effect,
-                                    onCopy, onClose, onMove,
-                                }: ProgramItemCardProps) {
+    index, effect,
+    onCopy, onClose, onMove,
+}: ProgramItemCardProps) {
     return (
         <div className="card" style={{ minWidth: "30rem" }}>
             <div className="card-body">
@@ -23,14 +23,14 @@ export function ProgramItemCard({
                         <div className="fs-6 fw-lighter">
                             #{index + 1}
                         </div>
-                        <div style={{ height: "2rem", width: "2rem" }} onDrag={onMove} className="fs-3 bi-arrows-move"/>
+                        <div style={{ height: "2rem", width: "2rem" }} onDrag={onMove} className="fs-3 bi-arrows-move" />
                     </div>
-                    <div className="col-10"><EffectCard effect={effect}/></div>
+                    <div className="col-10"><EffectCard key={"ec" + effect.id} effect={effect} /></div>
                     <div className="col-1">
-                        <button onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard"/>
+                        <button onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard" />
                         </button>
-                        <button  onClick={onClose} className="btn btn-lg btn-danger"><span
-                            className="bi-trash"/>
+                        <button onClick={onClose} className="btn btn-lg btn-danger"><span
+                            className="bi-trash" />
                         </button>
                     </div>
                 </div>
@@ -45,12 +45,12 @@ interface ProgramItemProps {
 
 const EffectCard = ({ effect }: ProgramItemProps) => {
     const colorPalette = useMemo(() => effect.colorSettings.map((color, i) => <>
-                <div className="me-2 border shadow-sm p-3 rounded"
-                     style={{
-                         background: `rgb(${color.r}, ${color.g}, ${color.b})`
-                     }}/>
-                {i + 1 < effect.colorSettings.length ? <i className="bi-arrow-right me-2"/> : ""}
-            </>), [effect.colorSettings]);
+        <div className="me-2 border shadow-sm p-3 rounded"
+            style={{
+                background: `rgb(${color.r}, ${color.g}, ${color.b})`
+            }} />
+        {i + 1 < effect.colorSettings.length ? <i className="bi-arrow-right me-2" /> : ""}
+    </>), [effect.colorSettings]);
 
     const effectLength = useMemo(() => trimTime(effect.lengthMs), [effect.lengthMs]);
     const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
@@ -66,7 +66,7 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
                         <span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
                     </div>
                 </div>
-                <AdditionalDataTable data={effect.additionalPropertiesToDisplay}/>
+                <AdditionalDataTable key={"effect-table" + effect.id} data={effect.additionalPropertiesToDisplay} />
             </div>
         </div>
     );
