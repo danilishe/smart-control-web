@@ -11,12 +11,12 @@ export function AdditionalDataTable({ data }: AdditionalDataTableProps) {
         <table className={"table"}>
             <thead>
             <tr>
-                {Object.keys(data).map((h, i) => <th scope="col" key={i}>{h}</th>)}
+                {Object.keys(data).map((h, i) => <th scope="col" key={"h" + i}>{h}</th>)}
             </tr>
             </thead>
             <tbody>
             <tr>
-                {Object.values(data).map((v, i) => <td key={i}>{v}</td>)}
+                {Object.values(data).map((v, i) => <td key={"v" + i}>{v}</td>)}
             </tr>
             </tbody>
         </table>

@@ -10,15 +10,14 @@ export const ProgramList = () => {
     const effectsList = useSelector((state: RootState) => state.programReducer.effects);
     return (
         <div className="collection">
-            {effectsList.map((i: Effect, index) => {
+            {effectsList.map((effect: Effect, index) => {
                 return (
-                    <div key={"c" + i.id} className="collection-item m-2">
+                    <div key={effect.id} className="collection-item m-2">
                         <ProgramItemCard
-                            key={"pic" + i.id}
-                            effect={i}
+                            effect={effect}
                             index={index}
-                            onClose={() => dispatch(effectRemove(i))}
-                            onCopy={() => dispatch(effectAdd(i))} />
+                            onClose={() => dispatch(effectRemove(effect))}
+                            onCopy={() => dispatch(effectAdd(effect))} />
                     </div>
                 )
             })}
