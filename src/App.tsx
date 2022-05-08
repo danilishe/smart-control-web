@@ -9,11 +9,11 @@ function App() {
     return <>
         <NavBar />
         <div className="container">
-            <div className="row  mt-3">
-                <div className="col-3">
+            <div className="row g-2 mt-3">
+                <div className="col col-md-3">
                     <EffectsCatalogue />
                 </div>
-                <div className="col g-2">
+                <div className="col">
                     {/* <PreviewArea /> */}
                     <ProgramList />
                 </div>

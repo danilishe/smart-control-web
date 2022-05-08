@@ -1,4 +1,4 @@
-import { ColorMode } from "./model/exporters";
+import { ColorMode } from "./model/ColorMode";
 
 export const AppParams = {
     minFrameLength: 40,

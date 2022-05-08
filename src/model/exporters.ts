@@ -1,9 +1,9 @@
-import { Effect } from "./Effect";
-import Color from "./Color";
+import { AppParams, ProgramSettings } from "../defaultParams";
 import { toFrames } from "../utils";
+import Color from "./Color";
+import { ColorMode } from "./ColorMode";
 import { clonify, createGradient } from "./colorUtils";
-import { ProgramSettings } from "../defaultParams";
-import { AppParams } from "../defaultParams";
+import { Effect } from "./Effect";
 
 export type EffectExporter = (channels: number, effect: Effect) => ProgramSnippet;
 
@@ -46,11 +46,6 @@ export function createDataLink(settings: typeof ProgramSettings, effects: Array<
     reader.readAsDataURL(file);
 
     return result!;
-}
-
-export enum ColorMode {
-    Mono,
-    RGB
 }
 
 export function formFrame(channels: number[]): Array<number> {
