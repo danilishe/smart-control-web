@@ -6,8 +6,8 @@ import { AdditionalDataTable } from "./AdditionalDataTable";
 interface ProgramItemCardProps {
     effect: Effect;
     index: number;
-    onClose?: MouseEventHandler<HTMLButtonElement>;
-    onCopy?: MouseEventHandler<HTMLButtonElement>;
+    onClose?: MouseEventHandler<HTMLElement>;
+    onCopy?: MouseEventHandler<HTMLElement>;
     onMove?: MouseEventHandler<HTMLElement>;
 }
 
@@ -16,23 +16,23 @@ export function ProgramItemCard({
                                     onCopy, onClose, onMove,
                                 }: ProgramItemCardProps) {
     return (
-        <div className="card" style={{ minWidth: "30rem" }}>
+        <div className="card w-auto">
             <div className="card-body">
-                <div className="row">
-                    <div className="col-1 d-flex flex-column">
-                        <div className="fs-6 fw-lighter">
+                <div className="row gap-1 g-0">
+                    <div className="col-auto">
+                        <div className="fs-6 fw-lighter text-nowrap">
                             #{index + 1}
                         </div>
                         <div style={{ height: "2rem", width: "2rem" }} onDrag={onMove}
                              className="fs-3 bi-arrows-move" />
                     </div>
-                    <div className="col-10"><EffectCard effect={effect} /></div>
-                    <div className="col-1">
-                        <button type="button" onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard" />
-                        </button>
-                        <button onClick={onClose} className="btn btn-lg btn-danger"><span
+                    <div className="col"><EffectCard effect={effect} /></div>
+                    <div className="col-auto">
+                        <div onClick={onCopy} className="btn d-block btn-lg"><span className="bi-clipboard" />
+                        </div>
+                        <div onClick={onClose} className="btn d-block btn-lg btn-danger"><span
                             className="bi-trash" />
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,13 +45,14 @@ interface ProgramItemProps {
 }
 
 const EffectCard = ({ effect }: ProgramItemProps) => {
-    const colorPalette = useMemo(() => effect.colorSettings.map((color, i) => <>
-        <div key={i} className="me-2 border shadow-sm p-3 rounded"
-             style={{
-                 background: `rgb(${color.r}, ${color.g}, ${color.b})`
-             }} />
-        {i + 1 < effect.colorSettings.length ? <i className="bi-arrow-right me-2" /> : ""}
-    </>), [effect.colorSettings]);
+    const colorPalette = useMemo(() => effect.colorSettings.map((color, i) =>
+        <>
+            <div key={i} className="border shadow-sm p-3 rounded col-auto"
+                 style={{
+                     background: `rgb(${color.r}, ${color.g}, ${color.b})`
+                 }} />
+            {i + 1 < effect.colorSettings.length ? <i key={"-" + i} className="col-auto bi-arrow-right" /> : ""}
+        </>), [effect.colorSettings]);
 
     const effectLength = useMemo(() => trimTime(effect.lengthMs), [effect.lengthMs]);
     const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
@@ -60,9 +61,9 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
         <div className="card">
             <div className="card-title">{effect.label}</div>
             <div className="card-body">
-                <div className="d-flex align-items-center">
+                <div className="row align-items-center">
                     {colorPalette}
-                    <div className="fs-5">
+                    <div className="col-auto fs-5">
                         {effectLength}
                         <span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
                     </div>
