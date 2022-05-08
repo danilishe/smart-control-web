@@ -12,13 +12,14 @@ export const ProgramList = () => {
         <div className="collection">
             {effectsList.map((i: Effect, index) => {
                 return (
-                    <li key={i.id} className="collection-item m-2">
-                        <ProgramItemCard effect={i}
+                    <div key={"c" + i.id} className="collection-item m-2">
+                        <ProgramItemCard
+                            key={"pic" + i.id}
+                            effect={i}
                             index={index}
                             onClose={() => dispatch(effectRemove(i))}
                             onCopy={() => dispatch(effectAdd(i))} />
-                            <p>{i.id}</p>
-                    </li>
+                    </div>
                 )
             })}
         </div>

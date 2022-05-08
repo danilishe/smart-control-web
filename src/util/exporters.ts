@@ -1,9 +1,9 @@
 import { AppParams, ProgramSettings } from "../defaultParams";
 import { toFrames } from "../utils";
-import Color from "./Color";
-import { ColorMode } from "./ColorMode";
+import Color from "../model/Color";
+import { ColorMode } from "../model/ColorMode";
 import { clonify, createGradient } from "./colorUtils";
-import { Effect } from "./Effect";
+import { Effect } from "../model/Effect";
 
 export type EffectExporter = (bulbsCount: number, effect: Effect) => ProgramSnippet;
 

@@ -1,5 +1,5 @@
 import Color from "./Color";
-import { EffectExporter, sharpChangeExporter, smoothChangeExporter, solidColorExporter } from "./exporters";
+import { EffectExporter, sharpChangeExporter, smoothChangeExporter, solidColorExporter } from "../util/exporters";
 
 export interface Effect {
     id: string;

@@ -1,5 +1,5 @@
 import { clonify, createGradient, createSmoothDelta } from "../colorUtils";
-import Color from "../Color";
+import Color from "../../model/Color";
 
 beforeAll(() => {
 });

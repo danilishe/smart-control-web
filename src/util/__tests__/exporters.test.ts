@@ -1,7 +1,7 @@
 import { AppParams } from "../../defaultParams";
-import Color from "../Color";
-import { ColorMode } from "../ColorMode";
-import { solidColor } from "../Effect";
+import Color from "../../model/Color";
+import { ColorMode } from "../../model/ColorMode";
+import { solidColor } from "../../model/Effect";
 import { arrayToString, toBinaryFrames, exportColor, formFrame, joinExportedEffects, solidColorExporter, flipSnippet } from "../exporters";
 
 const testColor: Color = { r: 32, g: 32, b: 32 };

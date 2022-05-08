@@ -1,4 +1,4 @@
-import Color from "./Color";
+import Color from "../model/Color";
 
 function plus(initial: Color, deltaColor: Color, multiplier: number): Color {
     return {

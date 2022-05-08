@@ -25,9 +25,9 @@ export function ProgramItemCard({
                         </div>
                         <div style={{ height: "2rem", width: "2rem" }} onDrag={onMove} className="fs-3 bi-arrows-move" />
                     </div>
-                    <div className="col-10"><EffectCard key={"ec" + effect.id} effect={effect} /></div>
+                    <div className="col-10"><EffectCard effect={effect} /></div>
                     <div className="col-1">
-                        <button onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard" />
+                        <button type="button" onClick={onCopy} className="btn btn-lg"><span className="bi-clipboard" />
                         </button>
                         <button onClick={onClose} className="btn btn-lg btn-danger"><span
                             className="bi-trash" />

@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { useSelector } from "react-redux";
-import { createDataLink as createDataLink } from "../model/exporters";
+import { createDataLink as createDataLink } from "../util/exporters";
 import { AppParams, ProgramSettings } from "../defaultParams";
 import { RootState } from "../reducer/rootReducer";
 
