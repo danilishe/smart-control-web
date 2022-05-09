@@ -1,5 +1,5 @@
-import { AppParams } from "./defaultParams";
-import Color from "./model/Color";
+import { AppParams } from "../defaultParams";
+import Color from "../model/Color";
 
 export function trimTime(lengthMs: number): string {
     if (lengthMs < 1_000) return `${lengthMs} мсек.`

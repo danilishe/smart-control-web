@@ -59,3 +59,20 @@ export function createGradient(colors: Color[], length: number, smooth = true): 
     );
     return result;
 }
+
+
+function toHex(n: number) {
+    return n.toString(16).padStart(2, "0");
+}
+
+export function toHexColor(color: Color) {
+    return `#${toHex(color.r) + toHex(color.g) + toHex(color.b)}`;
+}
+
+export function getColorFromHex(color: string) {
+    return {
+        r: parseInt(color.substring(1, 3), 16),
+        g: parseInt(color.substring(3, 5), 16),
+        b: parseInt(color.substring(5, 7), 16),
+    };
+}

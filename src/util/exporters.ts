@@ -1,5 +1,5 @@
 import { AppParams, ProgramSettings } from "../defaultParams";
-import { toFrames } from "../utils";
+import { toFrames } from "./utils";
 import Color from "../model/Color";
 import { ColorMode } from "../model/ColorMode";
 import { clonify, createGradient } from "./colorUtils";
