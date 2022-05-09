@@ -1,9 +1,10 @@
 import { Effect } from "../model/Effect";
 import React, { MouseEventHandler, useMemo } from "react";
-import { toFrames, trimTime } from "../utils";
+import { toFrames } from "../utils";
 import { AdditionalDataTable } from "./AdditionalDataTable";
 import { useDispatch } from "react-redux";
 import { effectUpdate } from "../reducer/programReducer";
+import Color from "../model/Color";
 
 interface ProgramItemCardProps {
     effect: Effect;
@@ -46,15 +47,42 @@ interface ProgramItemProps {
     effect: Effect;
 }
 
+function toHex(n: number) {
+    return n.toString(16).padStart(2, "0");
+}
+
+function toHexColor(color: Color) {
+    return `#${toHex(color.r) + toHex(color.g) + toHex(color.b)}`;
+}
+
+function getColorFromHex(color: string) {
+    return {
+        r: parseInt(color.substring(1, 3), 16),
+        g: parseInt(color.substring(3, 5), 16),
+        b: parseInt(color.substring(5, 7), 16),
+    };
+}
+
 const EffectCard = ({ effect }: ProgramItemProps) => {
-    const colorPalette = useMemo(() => effect.colorSettings.map((color, i) =>
-        <>
-            <div key={i} className="border shadow-sm p-3 rounded col-auto"
-                 style={{
-                     background: `rgb(${color.r}, ${color.g}, ${color.b})`
-                 }} />
-            {i + 1 < effect.colorSettings.length ? <i key={"-" + i} className="col-auto bi-arrow-right" /> : ""}
-        </>), [effect.colorSettings]);
+    const colorPalette = useMemo(() =>
+            <div className="input-group">
+                {effect.colorSettings.map((color, i) =>
+                    <>
+                        <input type="color"
+                               className="form-control form-control-color"
+                               style={{ width: "2.5rem" }}
+                               key={i}
+                               value={toHexColor(color)}
+                               onChange={(event) => {
+                                   const newColors = [...effect.colorSettings];
+                                   newColors[i] = getColorFromHex(event.target.value)
+                                   dispatch(effectUpdate({ ...effect, colorSettings: newColors }))
+                               }}
+                        />
+                    </>)}
+            </div>, [effect.colorSettings]
+        )
+    ;
 
     const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
 
@@ -71,9 +99,9 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
         <div className="card">
             <div className="card-title">{effect.label}</div>
             <div className="card-body">
-                <div className="row align-items-center">
-                    {colorPalette}
-                    <div className="col-auto fs-5">
+                <div className="row justify-content-start align-items-center">
+                    <div className="col-auto">{colorPalette}</div>
+                    <div className="col-auto">
                         <div className="input-group">
                             <input className="form-control"
                                    min={1}
