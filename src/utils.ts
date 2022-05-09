@@ -3,8 +3,9 @@ import Color from "./model/Color";
 
 export function trimTime(lengthMs: number): string {
     if (lengthMs < 1_000) return `${lengthMs} мсек.`
-    if (lengthMs < 60_000) return `${lengthMs / 1_000} сек.`
-    return `${lengthMs / 60_000} мин.`
+    if (lengthMs < 60_000) return `${Math.round(lengthMs / 1_000)} сек.`
+    if (lengthMs < 3_600_000) return `${Math.round(lengthMs / 60_000)} мин.`
+    return `${Math.round(lengthMs / 3_600_000)} ч.`
 }
 
 export function toFrames(length: number) {

@@ -30,9 +30,13 @@ export const programReducer = (state: ProgramState = INITIAL_STATE, action: Payl
                     ...state.effects.slice(index)
                 ];
             } else {
-                newEffects = [ ...state.effects, newEffect ];
+                newEffects = [...state.effects, newEffect];
             }
             return { ...state, effects: newEffects };
+        case effectUpdate.type:
+            return {
+                ...state, effects: state.effects.map(e => e.id === action.payload.id ? action.payload : e)
+            }
         default:
             return state;
     }

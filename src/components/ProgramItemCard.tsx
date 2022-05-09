@@ -2,6 +2,8 @@ import { Effect } from "../model/Effect";
 import React, { MouseEventHandler, useMemo } from "react";
 import { toFrames, trimTime } from "../utils";
 import { AdditionalDataTable } from "./AdditionalDataTable";
+import { useDispatch } from "react-redux";
+import { effectUpdate } from "../reducer/programReducer";
 
 interface ProgramItemCardProps {
     effect: Effect;
@@ -57,6 +59,15 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
     const effectLength = useMemo(() => trimTime(effect.lengthMs), [effect.lengthMs]);
     const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
 
+    let dispatch = useDispatch();
+
+    const applyLength = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(effectUpdate({
+        ...effect,
+        lengthMs: Math.max(
+            Math.min(parseInt(event.target.value), 60_000)
+            , 1) * 1_000
+    }));
+
     return (
         <div className="card">
             <div className="card-title">{effect.label}</div>
@@ -64,8 +75,13 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
                 <div className="row align-items-center">
                     {colorPalette}
                     <div className="col-auto fs-5">
-                        {effectLength}
-                        <span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
+                        <input className="d-inline"
+                               min={1}
+                               max={60_000}
+                               type="number"
+                               value={effect.lengthMs / 1000}
+                               onChange={applyLength} />
+                        {effectLength}<span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
                     </div>
                 </div>
                 <AdditionalDataTable data={effect.additionalPropertiesToDisplay} />
