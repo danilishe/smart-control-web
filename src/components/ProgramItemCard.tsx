@@ -56,7 +56,6 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
             {i + 1 < effect.colorSettings.length ? <i key={"-" + i} className="col-auto bi-arrow-right" /> : ""}
         </>), [effect.colorSettings]);
 
-    const effectLength = useMemo(() => trimTime(effect.lengthMs), [effect.lengthMs]);
     const effectLengthFrames = useMemo(() => toFrames(effect.lengthMs), [effect.lengthMs]);
 
     let dispatch = useDispatch();
@@ -64,7 +63,7 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
     const applyLength = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(effectUpdate({
         ...effect,
         lengthMs: Math.max(
-            Math.min(parseInt(event.target.value), 60_000)
+            Math.min(parseInt(event.target.value) || 0, 60_000)
             , 1) * 1_000
     }));
 
@@ -75,17 +74,22 @@ const EffectCard = ({ effect }: ProgramItemProps) => {
                 <div className="row align-items-center">
                     {colorPalette}
                     <div className="col-auto fs-5">
-                        <input className="d-inline"
-                               min={1}
-                               max={60_000}
-                               type="number"
-                               value={effect.lengthMs / 1000}
-                               onChange={applyLength} />
-                        {effectLength}<span className="fs-6 fw-lighter">/{effectLengthFrames} кадров</span>
+                        <div className="input-group">
+                            <input className="form-control"
+                                   min={1}
+                                   max={60_000}
+                                   type="number"
+                                   value={effect.lengthMs / 1000}
+                                   onChange={applyLength} />
+                            <div className="input-group-append">
+                                <span className="input-group-text">{effectLengthFrames}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <AdditionalDataTable data={effect.additionalPropertiesToDisplay} />
             </div>
         </div>
-    );
+    )
+        ;
 }
