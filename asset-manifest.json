@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/smart-control-web/static/css/main.31d6cfe0.css",
-    "main.js": "/smart-control-web/static/js/main.5d0a3943.js",
+    "main.js": "/smart-control-web/static/js/main.40708436.js",
     "index.html": "/smart-control-web/index.html",
-    "main.5d0a3943.js.map": "/smart-control-web/static/js/main.5d0a3943.js.map"
+    "main.40708436.js.map": "/smart-control-web/static/js/main.40708436.js.map"
   },
   "entrypoints": [
     "static/css/main.31d6cfe0.css",
-    "static/js/main.5d0a3943.js"
+    "static/js/main.40708436.js"
   ]
 }
