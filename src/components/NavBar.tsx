@@ -5,6 +5,7 @@ import { createDataLink } from "../util/exporters";
 import { AppParams, ProgramSettings } from "../defaultParams";
 import { RootState } from "../reducer/rootReducer";
 import { Button, ButtonGroup, Modal, ToggleButton } from "react-bootstrap";
+import { ColorMode } from "../model/ColorMode";
 
 export const NavBar = () => {
     const program = useSelector((state: RootState) => state.programReducer.effects);
@@ -55,11 +56,10 @@ interface ModalSettingsProps {
 
 function ModalSettings({ title }: ModalSettingsProps) {
     const [show, setShow] = useState(false);
-    const [radioValue, setRadioValue] = useState('1');
+    const [radioValue, setRadioValue] = useState(ColorMode.Mono);
     const radios = [
-        { name: 'Active', value: '1' },
-        { name: 'Radio', value: '2' },
-        { name: 'Radio', value: '3' },
+        { name: 'Один цвет', value: ColorMode.Mono },
+        { name: 'RGB', value: ColorMode.RGB },
     ];
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -69,53 +69,39 @@ function ModalSettings({ title }: ModalSettingsProps) {
             <Button type="button" variant="outline-primary" onClick={handleShow}>{title}</Button>
 
             <Modal centered show={show} onHide={handleClose}>
-                <Form>
+                <Modal.Header closeButton>
+                    <Modal.Title>Настройки</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group className="d-flex justify-content-between align-items-center">
+                        <Form.Label>Количество ламп</Form.Label>
+                        <Form.Control type="number" min={1} max={45} value={8} />
+                    </Form.Group>
 
-                    <Modal.Header closeButton>
-                        <Modal.Title>Настройки</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>Количество ламп</Form.Label>
-                            <Form.Control type="number" min={1} max={45} />
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-
-
-                            <ButtonGroup>
-                                {radios.map((radio, idx) => (
-                                    <ToggleButton
-                                        key={idx}
-                                        id={`radio-${idx}`}
-                                        type="radio"
-                                        variant={idx % 2 ? 'outline-success' : 'outline-danger'}
-                                        name="radio"
-                                        value={radio.value}
-                                        checked={radioValue === radio.value}
-                                        onChange={(e) => setRadioValue(e.currentTarget.value)}
-                                    >
-                                        {radio.name}
-                                    </ToggleButton>
-                                ))}
-                            </ButtonGroup>
-
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Отмена
-                        </Button>
-                        <Button variant="primary" type="submit">
-                            Сохранить
-                        </Button>
-                    </Modal.Footer>
-                </Form>
+                    <Form.Group className="d-flex justify-content-between align-items-center">
+                        <Form.Label>Режим</Form.Label>
+                        <ButtonGroup>
+                            {radios.map((radio, idx) => (
+                                <ToggleButton
+                                    key={idx}
+                                    id={`radio-${idx}`}
+                                    type="radio"
+                                    name="radio"
+                                    value={radio.value.valueOf()}
+                                    checked={radioValue === radio.value.valueOf()}
+                                    variant={radioValue === radio.value.valueOf() ? "primary" : "outline-primary"}
+                                    onChange={(e) => setRadioValue(parseInt(e.currentTarget.value))}
+                                >
+                                    {radio.name}
+                                </ToggleButton>
+                            ))}
+                        </ButtonGroup>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>Отмена</Button>
+                    <Button variant="primary" onClick={handleClose} type="submit">Сохранить</Button>
+                </Modal.Footer>
             </Modal>
         </>
     )
