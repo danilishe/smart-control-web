@@ -1,6 +1,5 @@
 import { Effect } from "../model/Effect";
 import { createAction, PayloadAction } from "@reduxjs/toolkit";
-import { generateUniqueID } from "web-vitals/dist/modules/lib/generateUniqueID";
 
 
 export const effectAdd = createAction<Effect>("effect/add")
@@ -13,6 +12,9 @@ const INITIAL_STATE: ProgramState = {
 
 export interface ProgramState {
     effects: Effect[]
+}
+function generateUniqueID() {
+    return `v3-${Date.now()}-${Math.floor(Math.random() * (9e12 - 1)) + 1e12}`;
 }
 
 export const programReducer = (state: ProgramState = INITIAL_STATE, action: PayloadAction<Effect>): ProgramState => {
